@@ -1,12 +1,8 @@
 #!/bin/bash
 # Usage: ./local_filter.sh <input> <output>
-# Filters ERROR lines from app.log and prints date, time, error_code.
-#
-# Assumed app.log format (common log4j / syslog-style):
-#   2024-07-10 08:11:09 ERROR [module] ERR_CODE: some message
-# Fields: $1=date  $2=time  $3=level  $4=[module]  $5=error_code ...
-#
-# Adjust field indices below if your actual log format differs.
+# app.log format:
+#   2026-07-10 08:11:21 ERROR cache module=adapter worker=2 code=E203 message=...
+#   $1=date  $2=time  $3=level  $4=component  $5=module=X  $6=worker=X  $7=code=XXX
 
 INPUT="$1"
 OUTPUT="$2"
@@ -15,10 +11,15 @@ mkdir -p "$OUTPUT"
 
 awk '
 /ERROR/ {
-    # $1 = date, $2 = time, $3 = level (ERROR), $4 = [component], $5 = error_code
-    # Print date, time, and error code (field 5, strip trailing colon if present)
-    error_code = $5
-    sub(/:$/, "", error_code)
-    print $1, $2, error_code
+    # Extract code value from the field that starts with "code="
+    code = ""
+    for (i = 1; i <= NF; i++) {
+        if ($i ~ /^code=/) {
+            split($i, a, "=")
+            code = a[2]
+            break
+        }
+    }
+    print $1, $2, code
 }
 ' "$INPUT" > "$OUTPUT/error_lines.txt"
