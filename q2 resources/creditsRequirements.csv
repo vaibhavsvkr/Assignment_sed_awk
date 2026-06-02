@@ -1,0 +1,10 @@
+tag,credits,color_FONT,color_BACKGROUND
+Basic Sciences,62.0,CYAN,BLACK
+Engineering Science,29.0,BLACK,GREEN
+HSS Elective,12.0,GREEN,BLACK
+Institute Elective,12.0,BLACK,WHITE
+Core course,117.0,BLACK,CYAN
+Department elective,36.0,YELLOW,BLACK
+Honors core,24.0,WHITE,BLACK
+Minor,30.0,MAGENTA,WHITE
+Additional Learning,0.0,RED,WHITE
