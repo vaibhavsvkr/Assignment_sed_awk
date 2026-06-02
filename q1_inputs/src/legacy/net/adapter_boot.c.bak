@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <string.h>
-#include <newlib.h>
+#include <oldlib.h>
 #include "core/adapter.h"
 #include "moduleA/http_client.h"
 
+// TEMPDEBUG: boot path entered
 
 static void log_cfg(const struct adapter_config *cfg) {
     printf("endpoint=%s retries=%d\n", cfg->endpoint, cfg->retries);

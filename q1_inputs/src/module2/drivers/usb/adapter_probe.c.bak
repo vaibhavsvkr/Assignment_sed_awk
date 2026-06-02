@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <newlib.h>
+#include <oldlib.h>
 #include "core/adapter.h"
 #include "moduleB/metrics.h"
 
